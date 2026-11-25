@@ -7,7 +7,7 @@ Monopage for all my games: a single, full-screen page (no scrolling, desktop and
 - **Category tabs** at the top (`Games`, `Boardgames` – the latter is disabled for now).
 - **Looping 3D carousel** of cabinets: arrows, dots, keyboard (← →), mouse drag, touch swipe and trackpad horizontal swipe.
 - **Arcade cabinet** for every game: illuminated marquee with the logo, CRT screen, joystick and buttons, coin door.
-- **Screen media**: a video (YouTube link or video file, autoplay, muted, looping) or a set of screenshots that crossfade.
+- **Screen media**: a video (YouTube link or video file, autoplay, muted, looping) or a set of screenshots that crossfade. YouTube videos show only the picture: no title, logo, controls, end screen or suggested videos.
 - **Info panel** next to the cabinet (below it on mobile): genres as colored chips, number of players, languages (flags), description and the *Insert coin / Play now* button.
 - **Insert coin sequence**: clicking *Play now* (or the coin door) zooms onto the coin slot, drops a coin with a short arcade sound, shows `CREDIT 01`, zooms into the screen and opens the game. Ctrl/Cmd/middle click opens the game in a new tab without the animation.
 - **IT / EN language switch** (top right): changes every text instantly. The default comes from the browser language; the choice is remembered.

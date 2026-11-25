@@ -271,6 +271,25 @@ body {
   transition: opacity 1s ease-in-out;
 }
 .screen img.is-visible { opacity: 1; }
+/* YouTube: 3x taller than the screen; the 16:9 picture sits exactly in the visible middle third,
+   title bar (top) and logo (bottom) are cropped away. Hidden until the video is playing. */
+.yt-wrap {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity .6s;
+  pointer-events: none;
+}
+.yt-wrap.is-playing { opacity: 1; }
+.yt-wrap iframe {
+  position: absolute;
+  left: 0;
+  top: -100%;
+  width: 100%;
+  height: 300%;
+  border: 0;
+  pointer-events: none;
+}
 /* video fills the screen like object-fit: cover (16:9 source cropped to the CRT) */
 .screen-video {
   position: absolute;

@@ -107,6 +107,70 @@
     return m ? m[1] : null;
   }
 
+  // ---- YouTube: show only the picture ----
+  // The player is hidden until it is actually playing (no thumbnail / big play button / title),
+  // it is 3x taller than the screen so the title bar and the logo fall outside the visible area,
+  // it never receives the mouse (no hover controls) and it restarts just before the end
+  // (no end screen, no suggested videos).
+  let ytApi = null;
+  function loadYouTubeApi() {
+    if (!ytApi) {
+      ytApi = new Promise((resolve) => {
+        const prev = window.onYouTubeIframeAPIReady;
+        window.onYouTubeIframeAPIReady = () => { if (prev) prev(); resolve(window.YT); };
+        const s = document.createElement('script');
+        s.src = 'https://www.youtube.com/iframe_api';
+        document.head.appendChild(s);
+      });
+    }
+    return ytApi;
+  }
+
+  function mountYouTube(screen, ytId, name) {
+    const wrap = document.createElement('div');
+    wrap.className = 'yt-wrap';
+    const target = document.createElement('div');
+    wrap.appendChild(target);
+    screen.appendChild(wrap);
+
+    loadYouTubeApi().then((YT) => {
+      let loopTimer = null;
+      const player = new YT.Player(target, {
+        host: 'https://www.youtube-nocookie.com',
+        videoId: ytId,
+        playerVars: {
+          autoplay: 1, mute: 1, controls: 0, disablekb: 1, fs: 0, rel: 0,
+          playsinline: 1, iv_load_policy: 3, modestbranding: 1, cc_load_policy: 0,
+          origin: location.origin,
+        },
+        events: {
+          onReady: (e) => {
+            const iframe = e.target.getIframe();
+            iframe.title = `${name} video`;
+            iframe.tabIndex = -1;
+            e.target.mute();
+            e.target.playVideo();
+          },
+          onStateChange: (e) => {
+            if (e.data === YT.PlayerState.PLAYING) {
+              wrap.classList.add('is-playing');
+              clearInterval(loopTimer);
+              loopTimer = setInterval(() => {
+                const d = player.getDuration();
+                if (d && player.getCurrentTime() > d - 0.4) player.seekTo(0, true);
+              }, 200);
+            } else if (e.data === YT.PlayerState.ENDED) {
+              player.seekTo(0, true);
+              player.playVideo();
+            } else if (e.data === YT.PlayerState.PAUSED) {
+              player.playVideo(); // nothing in the page should be able to pause it
+            }
+          },
+        },
+      });
+    });
+  }
+
   function mountVideo(screen, game) {
     const ytId = youTubeId(game.video);
     const isFile = /\.(mp4|webm|ogv|mov)(\?|#|$)/i.test(game.video);
@@ -129,18 +193,7 @@
       return true;
     }
     if (ytId) {
-      const params = new URLSearchParams({
-        autoplay: '1', mute: '1', loop: '1', playlist: ytId, controls: '0',
-        playsinline: '1', rel: '0', modestbranding: '1', disablekb: '1', iv_load_policy: '3',
-      });
-      const iframe = document.createElement('iframe');
-      iframe.className = 'screen-video';
-      iframe.src = `https://www.youtube-nocookie.com/embed/${ytId}?${params}`;
-      iframe.title = `${game.name} video`;
-      iframe.allow = 'autoplay; encrypted-media; picture-in-picture';
-      iframe.referrerPolicy = 'strict-origin-when-cross-origin';
-      iframe.tabIndex = -1;
-      screen.appendChild(iframe);
+      mountYouTube(screen, ytId, game.name);
       return true;
     }
     const video = document.createElement('video');

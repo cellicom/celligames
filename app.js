@@ -394,7 +394,6 @@
     slot.classList.add('inserting');
     coinSound();
     await wait(1000);
-    screen.classList.add('credit');
     // 3. zoom into the screen until it fills the viewport
     zoomTo(screenRect, base, Math.max(vw / screenRect.width, vh / screenRect.height) * 1.08);
     await wait(1000);
@@ -409,7 +408,6 @@
     stage.style.transform = '';
     document.body.classList.remove('coin-mode', 'coin-flash');
     document.querySelectorAll('.coin-slot.inserting').forEach((el) => el.classList.remove('inserting'));
-    document.querySelectorAll('.screen.credit').forEach((el) => el.classList.remove('credit'));
   });
 
   // ---- drag / swipe (mouse + touch) ----

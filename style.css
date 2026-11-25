@@ -481,7 +481,7 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  /* ambient animations only: the user-triggered insert-coin sequence keeps its coin and CREDIT animations */
+  /* ambient animations only: the user-triggered insert-coin sequence keeps its coin animation */
   .marquee,
   .coin-slot:not(.inserting),
   .cabinet:hover .js-stick,
@@ -656,21 +656,6 @@ body.coin-mode .showcase { will-change: auto; }
   to   { filter: brightness(1.8); box-shadow: 0 0 5cqw rgba(255,80,80,1), inset 0 0 0 1px rgba(255,255,255,.6); }
 }
 
-.screen-msg {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font: 400 5cqw/1 "Press Start 2P", monospace;
-  color: #ffd84a;
-  text-shadow: 0 0 2cqw rgba(255,216,74,.8);
-  background: rgba(0,0,0,.65);
-  opacity: 0;
-  transition: opacity .2s;
-}
-.screen.credit .screen-msg { opacity: 1; animation: blink .5s steps(2, start) infinite; }
 
 body::after {
   content: "";

@@ -40,6 +40,26 @@ window.GAMES = {
       "screens": [
         "assets/wordsquest/screen-1.png"
       ]
+    },
+    {
+      "id": "journey",
+      "name": "Journey",
+      "url": "https://play.google.com/store/apps/details?id=com.cellicomsoft.rmmv_dnd",
+      "players": 1,
+      "genres": [
+        { "it": "RPG", "en": "RPG" },
+        { "it": "A turni", "en": "Turn-based" },
+        { "it": "Fantasy", "en": "Fantasy" }
+      ],
+      "languages": ["it", "en"],
+      "logo": "assets/journey/logo.svg",
+      "description": {
+        "it": "Un master e quattro amici al tavolo di D&D: può succedere di tutto! La mia prima campagna da master trasformata in un RPG classico a turni. Demo per Android.",
+        "en": "A Dungeon Master and four friends around a D&D table: anything can happen! My first campaign as a DM turned into a classic turn-based RPG. Android demo."
+      },
+      "screens": [
+        "assets/journey/screen-1.jpg"
+      ]
     }
   ]
 }

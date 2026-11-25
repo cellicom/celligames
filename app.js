@@ -13,12 +13,14 @@
   // ---- i18n ----
   const I18N = {
     it: {
+      metaDescription: 'Una sala giochi retrò con i giochi indie di cellicom: scegli un cabinato, inserisci la moneta e gioca, dal browser o dal telefono.',
       categories: 'Categorie', comingSoon: 'Presto disponibile', language: 'Lingua',
       prev: 'Gioco precedente', next: 'Gioco successivo',
       genre: 'Genere', players: 'Giocatori', languages: 'Lingue', playNow: 'Gioca ora',
       playAria: (name) => `Gioca a ${name}`, loadError: 'Impossibile caricare i giochi.',
     },
     en: {
+      metaDescription: 'A retro arcade of indie games by cellicom: pick a cabinet, insert a coin and play, in your browser or on your phone.',
       categories: 'Categories', comingSoon: 'Coming soon', language: 'Language',
       prev: 'Previous game', next: 'Next game',
       genre: 'Genre', players: 'Players', languages: 'Languages', playNow: 'Play now',
@@ -234,6 +236,8 @@
     lang = next;
     try { localStorage.setItem(STORAGE_KEY, lang); } catch (_) { /* storage blocked */ }
     document.documentElement.lang = lang;
+    document.querySelectorAll('meta[name="description"], meta[property="og:description"]')
+      .forEach((m) => m.setAttribute('content', t('metaDescription')));
     document.querySelectorAll('[data-i18n]').forEach((el) => { el.textContent = t(el.dataset.i18n); });
     document.querySelectorAll('[data-i18n-aria]').forEach((el) => el.setAttribute('aria-label', t(el.dataset.i18nAria)));
     document.querySelectorAll('[data-i18n-title]').forEach((el) => { el.title = t(el.dataset.i18nTitle); });

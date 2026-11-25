@@ -17,8 +17,8 @@ window.GAMES = {
       "logo": "assets/cluehunter/logo.svg",
       "video": "https://youtu.be/SfmyL_80xDw",
       "description": {
-        "it": "Avventura retrò in pixel art: vola tra oltre 200 città reali, segui gli indizi e trova più di 400 tesori storici prima dei tre rivali controllati dall'AI.",
-        "en": "A retro pixel-art travel adventure: fly across 200+ real cities, follow the clues and find over 400 historical treasures before three AI rivals do."
+        "it": "Avventura retrò in pixel art: vola tra oltre 200 città reali, segui gli indizi e trova più di 400 tesori storici prima dei tuoi avversari.",
+        "en": "A retro pixel-art travel adventure: fly across 200+ real cities, follow the clues and find over 400 historical treasures before your opponents do."
       }
     },
     {

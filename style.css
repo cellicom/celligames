@@ -134,6 +134,7 @@ body {
 .slider img { -webkit-user-drag: none; }
 
 .slide {
+  container-type: size;
   position: absolute;
   inset: 0;
   transition: transform .7s var(--ease);
@@ -188,12 +189,10 @@ body {
 .cabinet {
   --side: #2b1f55;
   --molding: #ff2bd6;
+  --cab-ratio: 1.36; /* cabinet height / width: every part is sized in cqw, so this is fixed */
   container-type: inline-size;
   position: relative;
-  height: 100%;
-  max-height: 780px;
-  aspect-ratio: 9 / 16;
-  max-width: 100%;
+  width: min(460px, 100cqw, 100cqh / var(--cab-ratio));
   display: flex;
   flex-direction: column;
   filter: drop-shadow(0 30px 40px rgba(0,0,0,.6));
@@ -222,7 +221,7 @@ body {
 /* marquee (illuminated sign) */
 .marquee {
   flex: 0 0 auto;
-  height: 15%;
+  height: 20cqw;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -247,8 +246,7 @@ body {
 
 /* screen bezel */
 .bezel {
-  flex: 1 1 auto;
-  min-height: 0;
+  flex: 0 0 auto;
   padding: 4cqw;
   background: linear-gradient(180deg, #0b0916, #15112a);
   border-top: 1cqw solid #000;
@@ -256,8 +254,8 @@ body {
 .screen {
   position: relative;
   width: 100%;
-  height: 100%;
-  border-radius: 3cqw / 4cqw;
+  aspect-ratio: 16 / 9;
+  border-radius: 2.5cqw / 4cqw;
   overflow: hidden;
   background: #000;
   box-shadow: 0 0 0 1cqw #050409, 0 0 0 calc(1cqw + 2px) #2a2448;
@@ -484,7 +482,16 @@ body {
   will-change: transform, opacity;
   transition: transform .7s var(--ease), opacity .7s var(--ease);
 }
-.cabinet { flex: 0 0 auto; }
+/* the cabinet area is a size container: the cabinet scales to fit it */
+.cab-area {
+  flex: 0 0 auto;
+  align-self: stretch;
+  width: min(460px, 100cqh / 1.36);
+  container-type: size;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
 .info {
   flex: 0 1 400px;
@@ -692,7 +699,7 @@ body.coin-flash::after { opacity: 1; }
 @media (max-width: 760px) {
   .slide { padding: 4px 16px; }
   .showcase { flex-direction: column; gap: 10px; }
-  .cabinet { flex: 1 1 auto; min-height: 0; height: auto; max-width: 100%; }
+  .cab-area { flex: 1 1 auto; min-height: 0; width: 100%; align-self: stretch; }
   .info { flex: 0 0 auto; width: 100%; max-width: 420px; padding: 12px 14px; gap: 8px; border-radius: 14px; }
   .info-name { display: none; }
   .specs { gap: 6px; }

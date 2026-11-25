@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>celligames</title>
+  <meta name="description" content="I giochi di cellicom">
+  <meta name="theme-color" content="#0d0b1a">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <nav class="tabs" role="tablist" data-i18n-aria="categories">
+      <button class="tab is-active" role="tab" aria-selected="true" aria-controls="panel-games" id="tab-games" data-category="games">Games</button>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="panel-boardgames" id="tab-boardgames" data-category="boardgames" disabled data-i18n-title="comingSoon">Boardgames</button>
+    </nav>
+    <div class="lang-switch" role="group" data-i18n-aria="language">
+      <button class="lang-btn" data-lang="it" lang="it" aria-label="Italiano" title="Italiano">🇮🇹</button>
+      <button class="lang-btn" data-lang="en" lang="en" aria-label="English" title="English">🇬🇧</button>
+    </div>
+  </header>
+
+  <main class="stage">
+    <section class="panel" id="panel-games" role="tabpanel" aria-labelledby="tab-games">
+      <button class="nav-arrow prev" data-i18n-aria="prev">&#8249;</button>
+      <div class="slider" id="slider" aria-live="polite"></div>
+      <button class="nav-arrow next" data-i18n-aria="next">&#8250;</button>
+      <div class="dots" id="dots"></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    Developed with <span class="heart" aria-label="love">&#10084;&#65039;</span> by
+    <a href="https://github.com/cellicom" target="_blank" rel="noopener">cellicom</a>
+  </footer>
+
+  <template id="cabinet-tpl">
+    <article class="slide">
+      <div class="showcase">
+      <div class="cabinet">
+        <div class="cab-roof" aria-hidden="true"></div>
+        <div class="marquee"><img class="logo" alt=""></div>
+        <div class="bezel">
+          <div class="screen"><div class="screen-msg" aria-hidden="true">CREDIT 01</div></div>
+        </div>
+        <div class="deck" aria-hidden="true">
+          <div class="deck-top">
+            <div class="joystick"><span class="js-base"></span><span class="js-stick"></span><span class="js-ball"></span></div>
+            <div class="controls-right">
+              <div class="buttons">
+                <span class="abtn red"></span><span class="abtn yellow"></span>
+                <span class="abtn blue"></span><span class="abtn green"></span>
+              </div>
+            </div>
+          </div>
+          <div class="deck-front"></div>
+        </div>
+        <div class="cab-body">
+          <div class="coin-door">
+            <div class="coin-slots" aria-hidden="true">
+              <div class="coin-slot"><span class="slot"></span><span class="price">25¢</span></div>
+              <div class="coin-slot"><span class="slot"></span><span class="price">25¢</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="cab-kick" aria-hidden="true"></div>
+      </div>
+      <aside class="info">
+        <h2 class="info-name"></h2>
+        <dl class="specs">
+          <div class="spec spec--wide"><dt data-i18n="genre"></dt><dd class="spec-genre"></dd></div>
+          <div class="spec"><dt data-i18n="players"></dt><dd class="spec-players"></dd></div>
+          <div class="spec"><dt data-i18n="languages"></dt><dd class="spec-langs"></dd></div>
+        </dl>
+        <p class="desc"></p>
+        <a class="info-link"><span class="info-link-icon" aria-hidden="true"></span><span class="info-link-text"><span class="info-link-blink">Insert coin</span><span class="info-link-label" data-i18n="playNow"></span></span></a>
+      </aside>
+      </div>
+    </article>
+  </template>
+
+  <script src="games.js" defer></script>
+  <script src="app.js" defer></script>
+</body>
+</html>

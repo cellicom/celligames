@@ -79,6 +79,25 @@ window.GAMES = {
         "it": "Porting web del celebre gioco promozionale di Fiat e Quattroruote: fino a 4 giocatori guidano la loro Punto lungo il percorso della plancia, tra imprevisti e mini-giochi in stile arcade.",
         "en": "A web port of the famous promotional game by Fiat and Quattroruote: up to 4 players drive their Punto along the board path, through surprises and arcade-style mini-games."
       }
+    },
+    {
+      "id": "webalchemy",
+      "name": "WebAlchemy",
+      "url": "https://webalchemygame.vercel.app",
+      "players": 1,
+      "genres": [
+        { "it": "Puzzle", "en": "Puzzle" },
+        { "it": "Sandbox", "en": "Sandbox" }
+      ],
+      "languages": ["it", "en"],
+      "color": "#b57bff",
+      "description": {
+        "it": "Combina gli elementi trascinandoli uno sull'altro e scopri centinaia di creazioni: dall'acqua e dal fuoco fino a ciò che non immagini. Modalità libera, obiettivi e fornace.",
+        "en": "Combine elements by dragging one onto another and discover hundreds of creations, from water and fire to things you never imagined. Free mode, goals and forge."
+      },
+      "screens": [
+        "assets/webalchemy/screen-1.png"
+      ]
     }
   ]
 }

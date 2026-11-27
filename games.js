@@ -64,7 +64,7 @@ window.GAMES = {
     },
     {
       "id": "puntoxpunto",
-      "name": "Punto X Punto",
+      "name": "Punto per Punto",
       "url": "https://puntoxpunto-web.vercel.app",
       "players": 4,
       "genres": [

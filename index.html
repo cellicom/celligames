@@ -17,6 +17,10 @@
   <meta name="theme-color" content="#0d0b1a">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="celligames">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;600&display=swap" rel="stylesheet">
@@ -46,6 +50,7 @@
   <footer class="footer">
     Developed with <span class="heart" aria-label="love">&#10084;&#65039;</span> by
     <a href="https://github.com/cellicom" target="_blank" rel="noopener">cellicom</a>
+    <p class="disclaimer" data-i18n="disclaimer"></p>
   </footer>
 
   <template id="cabinet-tpl">
@@ -54,7 +59,7 @@
       <div class="cab-area">
       <div class="cabinet">
         <div class="cab-roof" aria-hidden="true"></div>
-        <div class="marquee"><img class="logo" alt=""></div>
+        <div class="marquee"><div class="logo"></div></div>
         <div class="bezel">
           <div class="screen"></div>
         </div>

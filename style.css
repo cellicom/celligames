@@ -238,10 +238,11 @@ body {
   50% { filter: brightness(1.15); }
 }
 .logo {
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
-  filter: drop-shadow(0 0 6px rgba(34,225,255,.6));
+  font: 4.5cqw/1.4 'Press Start 2P', monospace;
+  text-align: center;
+  text-transform: uppercase;
+  color: #22e1ff;
+  text-shadow: 0 0 .8cqw currentColor;
 }
 
 /* screen bezel */
@@ -690,6 +691,7 @@ body.coin-flash::after { opacity: 1; }
 }
 .footer a { color: var(--text); font-weight: 600; text-decoration: none; }
 .footer a:hover { color: var(--neon); }
+.footer .disclaimer { max-width: 720px; margin: 6px auto 0; font-size: 11px; line-height: 1.4; opacity: .7; }
 .heart { color: #ff2b4a; }
 
 /* ---------- Mobile ---------- */

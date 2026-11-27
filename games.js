@@ -1,6 +1,7 @@
 // Elenco giochi: modifica qui (formato JSON).
 // I testi tradotti (description e ogni genere) sono oggetti { "it": ..., "en": ... }.
 // "genres" è un elenco: ogni genere diventa un chip colorato.
+// "color": colore del titolo sull'insegna del cabinato.
 // "video" (facoltativo): link YouTube o file .mp4/.webm. Se c'è, ha la priorità sugli screenshot.
 window.GAMES = {
   "games": [
@@ -14,7 +15,7 @@ window.GAMES = {
         { "it": "Educativo", "en": "Educational" }
       ],
       "languages": ["it", "en"],
-      "logo": "assets/cluehunter/logo.svg",
+      "color": "#22e1ff",
       "video": "https://youtu.be/SfmyL_80xDw",
       "description": {
         "it": "Avventura retrò in pixel art: vola tra oltre 200 città reali, segui gli indizi e trova più di 400 tesori storici prima dei tuoi avversari.",
@@ -32,7 +33,7 @@ window.GAMES = {
         { "it": "Daily", "en": "Daily" }
       ],
       "languages": ["it", "en"],
-      "logo": "assets/wordsquest/logo.svg",
+      "color": "#ffd84a",
       "description": {
         "it": "Ogni giorno una nuova sfida: indovina le parole in 6 tentativi, con indizi che si sbloccano strada facendo. Solo parole vere, da dizionario.",
         "en": "A new challenge every day: guess the words in 6 attempts, with hints unlocking along the way. Only real words, straight from the dictionary."
@@ -52,7 +53,7 @@ window.GAMES = {
         { "it": "Fantasy", "en": "Fantasy" }
       ],
       "languages": ["it", "en"],
-      "logo": "assets/journey/logo.svg",
+      "color": "#18e07a",
       "description": {
         "it": "Un master e quattro amici al tavolo di D&D: può succedere di tutto! La mia prima campagna da master trasformata in un RPG classico a turni. Demo per Android.",
         "en": "A Dungeon Master and four friends around a D&D table: anything can happen! My first campaign as a DM turned into a classic turn-based RPG. Android demo."
@@ -60,6 +61,24 @@ window.GAMES = {
       "screens": [
         "assets/journey/screen-1.jpg"
       ]
+    },
+    {
+      "id": "puntoxpunto",
+      "name": "Punto X Punto",
+      "url": "https://puntoxpunto-web.vercel.app",
+      "players": 4,
+      "genres": [
+        { "it": "Da tavolo", "en": "Board game" },
+        { "it": "Mini-giochi", "en": "Mini-games" },
+        { "it": "Retrò", "en": "Retro" }
+      ],
+      "languages": ["it"],
+      "color": "#ffcc00",
+      "video": "https://youtu.be/LfHEcYgJaWc",
+      "description": {
+        "it": "Porting web del celebre gioco promozionale di Fiat e Quattroruote: fino a 4 giocatori guidano la loro Punto lungo il percorso della plancia, tra imprevisti e mini-giochi in stile arcade.",
+        "en": "A web port of the famous promotional game by Fiat and Quattroruote: up to 4 players drive their Punto along the board path, through surprises and arcade-style mini-games."
+      }
     }
   ]
 }

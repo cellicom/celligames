@@ -20,7 +20,7 @@ index.html            page markup and the cabinet <template>
 style.css             all styles (layout, cabinet, carousel, animations)
 app.js                carousel, i18n, media, insert-coin sequence
 games.js              the games list (data only)
-assets/<game-id>/     logo and screenshots of each game
+assets/<game-id>/     screenshots of each game (only if any)
 favicon.svg
 apple-touch-icon.png
 ```
@@ -33,15 +33,15 @@ Games live in `games.js` (JSON syntax inside `window.GAMES = …`, so the page a
 
 ```js
 {
-  "id": "mygame",                              // folder name under assets/
-  "name": "My Game",                           // marquee alt text and info panel title
+  "id": "mygame",                              // folder name under assets/ (if it has screens)
+  "name": "My Game",                           // marquee title and info panel title
   "url": "https://mygame.example.com",         // where Play now leads
   "players": 2,                                // max players (1–4); shown as "1" or "1–N"
   "genres": [                                  // one colored chip each
     { "it": "Avventura", "en": "Adventure" }
   ],
   "languages": ["it", "en"],                   // shown as flags
-  "logo": "assets/mygame/logo.svg",
+  "color": "#22e1ff",                        // marquee title color (the title is the name, as text)
   "video": "https://youtu.be/VIDEO_ID",        // optional, has priority over screens
   "description": {
     "it": "Testo in italiano.",

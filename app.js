@@ -17,6 +17,7 @@
       categories: 'Categorie', comingSoon: 'Presto disponibile', language: 'Lingua',
       prev: 'Gioco precedente', next: 'Gioco successivo',
       genre: 'Genere', players: 'Giocatori', languages: 'Lingue', playNow: 'Gioca ora',
+      disclaimer: 'Tutti i marchi, loghi, nomi e contenuti citati appartengono ai rispettivi proprietari e sono usati a solo scopo illustrativo e non commerciale. I giochi sono progetti indipendenti, non affiliati né approvati dai titolari di tali diritti. Per segnalazioni o richieste di rimozione, contattare l\'autore.',
       playAria: (name) => `Gioca a ${name}`, loadError: 'Impossibile caricare i giochi.',
     },
     en: {
@@ -24,6 +25,7 @@
       categories: 'Categories', comingSoon: 'Coming soon', language: 'Language',
       prev: 'Previous game', next: 'Next game',
       genre: 'Genre', players: 'Players', languages: 'Languages', playNow: 'Play now',
+      disclaimer: 'All trademarks, logos, names and content mentioned belong to their respective owners and are used for illustrative, non-commercial purposes only. The games are independent projects, not affiliated with or endorsed by those rights holders. For takedown requests or concerns, please contact the author.',
       playAria: (name) => `Play ${name}`, loadError: 'Unable to load games.',
     },
   };
@@ -64,8 +66,8 @@
   function buildCabinet(game) {
     const node = tpl.content.firstElementChild.cloneNode(true);
     const logo = node.querySelector('.logo');
-    logo.src = game.logo;
-    logo.alt = game.name;
+    logo.textContent = game.name;
+    if (game.color) logo.style.color = game.color;
     node.querySelector('.info-name').textContent = game.name;
     const link = node.querySelector('.info-link');
     link.href = game.url;
@@ -483,6 +485,8 @@
     if (e.key === 'ArrowLeft') move(-1);
     if (e.key === 'ArrowRight') move(1);
   });
+
+  if ('serviceWorker' in navigator && location.protocol.startsWith('http')) navigator.serviceWorker.register('sw.js');
 
   if (window.GAMES && Array.isArray(window.GAMES.games)) {
     render(window.GAMES.games);

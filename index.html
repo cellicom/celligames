@@ -27,6 +27,24 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <button id="splash" class="splash" data-i18n-aria="enter" aria-label="Enter">
+    <div class="door-frame">
+      <div class="room">
+        <div class="room-glow"></div>
+        <div class="room-strip"></div>
+        <div class="mini mini-1"><i></i></div>
+        <div class="mini mini-2"><i></i></div>
+        <div class="mini mini-3"><i></i></div>
+        <div class="room-floor"></div>
+      </div>
+      <div class="leaf">
+        <div class="pane"><div class="sign"><span class="sign-face">OPEN</span></div></div>
+        <div class="handle"></div>
+      </div>
+      <div class="splash-hint" data-i18n="enter"></div>
+    </div>
+  </button>
+
   <header class="topbar">
     <nav class="tabs" role="tablist" data-i18n-aria="categories">
       <button class="tab is-active" role="tab" aria-selected="true" aria-controls="panel-games" id="tab-games" data-category="games">Games</button>
@@ -35,6 +53,7 @@
     <div class="lang-switch" role="group" data-i18n-aria="language">
       <button class="lang-btn" data-lang="it" lang="it" aria-label="Italiano" title="Italiano">🇮🇹</button>
       <button class="lang-btn" data-lang="en" lang="en" aria-label="English" title="English">🇬🇧</button>
+      <button class="sound-btn" id="sound-btn" aria-pressed="true" data-i18n-aria="sound" data-i18n-title="sound"></button>
     </div>
   </header>
 

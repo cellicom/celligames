@@ -14,7 +14,7 @@
   const I18N = {
     it: {
       metaDescription: 'Una sala giochi retrò con i giochi indie di cellicom: scegli un cabinato, inserisci la moneta e gioca, dal browser o dal telefono.',
-      categories: 'Categorie', comingSoon: 'Presto disponibile', language: 'Lingua',
+      categories: 'Categorie', sound: 'Suoni', enter: 'Tocca per entrare', comingSoon: 'Presto disponibile', language: 'Lingua',
       prev: 'Gioco precedente', next: 'Gioco successivo',
       genre: 'Genere', players: 'Giocatori', languages: 'Lingue', playNow: 'Gioca ora',
       disclaimer: 'Tutti i marchi, loghi, nomi e contenuti citati appartengono ai rispettivi proprietari e sono usati a solo scopo illustrativo e non commerciale. I giochi sono progetti indipendenti, non affiliati né approvati dai titolari di tali diritti. Per segnalazioni o richieste di rimozione, contattare l\'autore.',
@@ -22,7 +22,7 @@
     },
     en: {
       metaDescription: 'A retro arcade of indie games by cellicom: pick a cabinet, insert a coin and play, in your browser or on your phone.',
-      categories: 'Categories', comingSoon: 'Coming soon', language: 'Language',
+      categories: 'Categories', sound: 'Sound', enter: 'Tap to enter', comingSoon: 'Coming soon', language: 'Language',
       prev: 'Previous game', next: 'Next game',
       genre: 'Genre', players: 'Players', languages: 'Languages', playNow: 'Play now',
       disclaimer: 'All trademarks, logos, names and content mentioned belong to their respective owners and are used for illustrative, non-commercial purposes only. The games are independent projects, not affiliated with or endorsed by those rights holders. For takedown requests or concerns, please contact the author.',
@@ -253,6 +253,113 @@
 
   document.querySelectorAll('.lang-btn').forEach((b) => b.addEventListener('click', () => setLang(b.dataset.lang)));
 
+  // ---- sound: slide blips + chiptune background music (all synthesized, no files) ----
+  const SOUND_KEY = 'celligames-sound';
+  const soundBtn = document.getElementById('sound-btn');
+  let soundOn = true;
+  try { soundOn = localStorage.getItem(SOUND_KEY) !== 'off'; } catch (_) { /* storage blocked */ }
+  let ac = null;
+  let musicGain = null;
+  let musicTimer = null;
+  let nextStep = 0;
+  let step = 0;
+
+  function tone(freq, t0, dur, type, vol, dest) {
+    const o = ac.createOscillator();
+    const g = ac.createGain();
+    o.type = type;
+    o.frequency.setValueAtTime(freq, t0);
+    g.gain.setValueAtTime(0.0001, t0);
+    g.gain.exponentialRampToValueAtTime(vol, t0 + 0.01);
+    g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
+    o.connect(g).connect(dest || ac.destination);
+    o.start(t0);
+    o.stop(t0 + dur + 0.05);
+  }
+
+  // arcade "blip" with a quick pitch slide, rising for next and falling for previous
+  function slideSound(dir) {
+    if (!soundOn || !ac || ac.state !== 'running') return;
+    const t0 = ac.currentTime;
+    const o = ac.createOscillator();
+    const g = ac.createGain();
+    o.type = 'square';
+    o.frequency.setValueAtTime(dir > 0 ? 440 : 880, t0);
+    o.frequency.exponentialRampToValueAtTime(dir > 0 ? 880 : 440, t0 + 0.09);
+    g.gain.setValueAtTime(0.06, t0);
+    g.gain.exponentialRampToValueAtTime(0.0001, t0 + 0.14);
+    o.connect(g).connect(ac.destination);
+    o.start(t0);
+    o.stop(t0 + 0.15);
+  }
+
+  // 16 steps at 140 bpm (8ths): bass + arpeggio over Am - F - C - G
+  const BASS = [110, 87.31, 130.81, 98];
+  const ARP = [[220, 261.63, 329.63], [174.61, 220, 261.63], [261.63, 329.63, 392], [196, 246.94, 293.66]];
+  const STEP = 60 / 140 / 2;
+  function scheduleMusic() {
+    while (nextStep < ac.currentTime + 0.3) {
+      const bar = Math.floor(step / 8) % 4;
+      const i = step % 8;
+      if (i % 2 === 0) tone(BASS[bar], nextStep, STEP * 1.6, 'triangle', 0.5, musicGain);
+      tone(ARP[bar][[0, 1, 2, 1][i % 4]] * (i >= 4 ? 2 : 1), nextStep, STEP * 0.8, 'square', 0.12, musicGain);
+      nextStep += STEP;
+      step++;
+    }
+  }
+
+  function applySound() {
+    soundBtn.setAttribute('aria-pressed', soundOn ? 'true' : 'false');
+    soundBtn.textContent = soundOn ? '🎵' : '🔇';
+    clearInterval(musicTimer);
+    if (!ac) return;
+    if (soundOn) {
+      ac.resume();
+      nextStep = ac.currentTime + 0.05;
+      musicTimer = setInterval(scheduleMusic, 100);
+    } else {
+      ac.suspend();
+    }
+  }
+
+  // browsers allow audio only after a user gesture: start on the first one
+  function startAudio() {
+    if (ac) return;
+    const AC = window.AudioContext || window.webkitAudioContext;
+    if (!AC) return;
+    ac = new AC();
+    musicGain = ac.createGain();
+    musicGain.gain.value = 0.05;
+    musicGain.connect(ac.destination);
+    applySound();
+  }
+  ['pointerdown', 'keydown'].forEach((ev) => document.addEventListener(ev, startAudio, { once: true }));
+  soundBtn.addEventListener('click', () => {
+    soundOn = !soundOn;
+    try { localStorage.setItem(SOUND_KEY, soundOn ? 'on' : 'off'); } catch (_) { /* storage blocked */ }
+    startAudio();
+    applySound();
+  });
+  document.addEventListener('visibilitychange', () => {
+    if (!ac || !soundOn) return;
+    if (document.hidden) ac.suspend(); else ac.resume();
+  });
+  applySound();
+
+  // ---- splash: click the arcade door to open it and enter ----
+  const splash = document.getElementById('splash');
+  splash.addEventListener('click', () => {
+    if (splash.classList.contains('is-open')) return;
+    splash.classList.add('is-open');
+    startAudio();
+    if (soundOn && ac) { // door bell
+      const t0 = ac.currentTime;
+      tone(1568, t0, 0.6, 'sine', 0.15);
+      tone(2093, t0 + 0.12, 0.9, 'sine', 0.12);
+    }
+    setTimeout(() => splash.remove(), 1700);
+  });
+
   // ---- looping carousel ----
   // Every slide sits at an offset from the center (0 = visible, -1 = left, +1 = right).
   // Offsets wrap around, so after the last game comes the first one again.
@@ -307,6 +414,7 @@
       if (Math.abs(offs[idx] - from) >= 0.999) placeInstant(idx, from);
     }
     current = next;
+    slideSound(dir);
     for (let idx = 0; idx < total; idx++) place(idx, wrapOffset(idx, current, -dir));
     setActive();
   }
@@ -348,6 +456,7 @@
   const wait = (ms) => new Promise((r) => setTimeout(r, ms));
 
   function coinSound() {
+    if (!soundOn) return;
     try {
       const AC = window.AudioContext || window.webkitAudioContext;
       const ac = new AC();
